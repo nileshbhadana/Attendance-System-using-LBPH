@@ -24,7 +24,7 @@ while(choice=='y'):
     
     
     #defining directory name where images will be stored
-    dir_name="/home/nilesh/Desktop/Attandence_system_face/dataset_images/"+student_name
+    dir_name="/home/nilesh/Desktop/attandance_system_face/dataset_images/"+student_name
     
     #using try to avoid error when directory is already present
     try:

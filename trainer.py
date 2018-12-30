@@ -17,7 +17,7 @@ ids=[]
 id=0
 
 #definig directory name where image data is stored
-dir_name="/home/nilesh/Desktop/Attandence_system_face/dataset_images/"
+dir_name="/home/nilesh/Desktop/attandance_system_face/dataset_images/"
 folder_name=os.listdir(dir_name)
 for i in folder_name:
     print(i)
