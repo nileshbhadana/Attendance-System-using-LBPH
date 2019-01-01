@@ -9,6 +9,11 @@ Created on Thu Dec 27 03:44:34 2018
 import cv2,os
 import numpy as np
 
+try:
+    os.mkdir("dataset_images")
+except:
+    print()
+
 def image_taker(dir_name,student_id):
     counter=0
     cam=cv2.VideoCapture(0)
