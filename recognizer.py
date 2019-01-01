@@ -78,7 +78,7 @@ while cam.isOpened():
                 msg="nilesh"
             
             #printing the message 
-            cv2.putText(frame,msg,(x,y),font,1,(255,255,255),3,cv2.LINE_AA)
+            #cv2.putText(frame,msg,(x,y),font,1,(255,255,255),3,cv2.LINE_AA)
             
             #changing flag to 1
             detected=1

@@ -7,30 +7,10 @@ Created on Thu Dec 27 03:44:34 2018
 """
 #importing libraries
 import cv2,os
+import numpy as np
 
-#casecading xml file
-cascade=cv2.CascadeClassifier("face.xml")
-
-#setting up counter
-student_id=0
-choice='y'
-
-while(choice=='y'):
+def image_taker(dir_name,student_id):
     counter=0
-    
-    student_name=input("Enter student name: ")
-    
-    #startiing the camera
-    
-    
-    #defining directory name where images will be stored
-    dir_name="/home/nilesh/Desktop/attandance_system_face/dataset_images/"+student_name
-    
-    #using try to avoid error when directory is already present
-    try:
-        os.mkdir(dir_name)
-    except:
-        print("Student name already exits.")
     cam=cv2.VideoCapture(0)
     #startin the loop
     while cam.isOpened():
@@ -66,4 +46,34 @@ while(choice=='y'):
     cam.release()
         #destroying all windows
     cv2.destroyAllWindows()
+
+#casecading xml file
+cascade=cv2.CascadeClassifier("face.xml")
+
+#setting up student Id
+try:
+    labels=np.load('training_ids.npy')
+    student_id=labels[0]+1
+except:
+    student_id=0
+
+
+print(student_id)
+choice='y'
+
+while(choice=='y'):
+    student_name=input("Enter student name: ")
+    
+    #defining directory name where images will be stored
+    dir_name="/home/nilesh/Desktop/attandance_system_face/dataset_images/"+student_name
+    
+    #using try to avoid error when directory is already present
+    try:
+        os.mkdir(dir_name)
+        image_taker(dir_name,student_id)
+    except:
+        print("Student name already exits.")
+        
     choice=input("Add another:")
+    
+os.system("python3 trainer.py")

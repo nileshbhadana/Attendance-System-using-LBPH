@@ -46,6 +46,6 @@ for i in folder_name:
             print(id)
             ids.append(id)
     
-
+print(ids)
 np.save('training_faces', face_datas)
 np.save('training_ids', ids)
