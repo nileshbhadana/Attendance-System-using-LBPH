@@ -11,6 +11,7 @@ import numpy as np
 
 def save_att(student_id):
     #present=0
+    print("hhhhh")
     d=datetime.date.today()
     ids=[]
     file_name=d.strftime("%d_%B"+".txt")
@@ -30,10 +31,6 @@ def save_att(student_id):
         with open(file_name,'w') as file_data:
             file_data.write(str(student_id)+",p")
             print("file created")
-    '''if present==1:
-        f.write("\n"+str(student_id)+",p")
-        print("marked")
-    f.close()'''
 #setting font for puttext
 font=cv2.FONT_HERSHEY_SIMPLEX
 
@@ -53,7 +50,16 @@ detected=0
 #cascading
 cascade=cv2.CascadeClassifier('face.xml')
 # opening camera
+'''width=640
+height = 480
+os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;udp"
+cam=cv2.VideoCapture("rtsp://192.168.10.240:554/onvif1",cv2.CAP_FFMPEG)
+
+cam.set(3,width)
+cam.set(4,height)
+'''
 cam=cv2.VideoCapture(0)
+
 while cam.isOpened():
     # reading frame
     frame=cam.read()[1]
@@ -70,7 +76,7 @@ while cam.isOpened():
         print(label)
         
         #checking for confidence (the lower the confidence the more accurate the prediction is)
-        if confidence<50:
+        if confidence<70:
             save_att(label)
             if label==1:
                 msg="salman"

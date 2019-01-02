@@ -17,6 +17,13 @@ except:
 def image_taker(dir_name,student_id):
     counter=0
     cam=cv2.VideoCapture(0)
+    '''width=640
+    height = 480
+    os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;udp"
+    cam=cv2.VideoCapture("rtsp://192.168.10.240:554/onvif1",cv2.CAP_FFMPEG)
+
+    cam.set(3,width)
+    cam.set(4,height)'''
     #startin the loop
     while cam.isOpened():
         
@@ -56,17 +63,18 @@ def image_taker(dir_name,student_id):
 cascade=cv2.CascadeClassifier("face.xml")
 
 #setting up student Id
-try:
-    labels=np.load('training_ids.npy')
-    student_id=labels[0]+1
-except:
-    student_id=0
-
-
-print(student_id)
 choice='y'
 
 while(choice=='y'):
+    try:
+        labels=np.load('training_ids.npy')
+        student_id=max(labels)+1
+    except:
+        student_id=0
+
+
+    print(student_id)
+
     student_name=input("Enter student name: ")
     
     #defining directory name where images will be stored
@@ -78,7 +86,7 @@ while(choice=='y'):
         image_taker(dir_name,student_id)
     except:
         print("Student name already exits.")
-        
+    
+    os.system("python3 trainer.py")
     choice=input("Add another:")
     
-os.system("python3 trainer.py")
