@@ -34,6 +34,50 @@ def save_att(student_id):
 #setting font for puttext
 font=cv2.FONT_HERSHEY_SIMPLEX
 
+val_list = ['hash',
+    'account_url',
+    'account_id',
+    'title',
+    'timestamp',
+    'ext',
+    'section',
+    'animated',
+    'hot_datetime',
+    'meme_name',
+    'num_images',
+    'reddit',
+    'topic',
+    'virality',
+    'ups',
+    'downs',
+    'views',
+    'favorited',
+    'comment_count',
+    'score',
+    'points',
+    'nsfw',
+    'is_album',
+    'count_album_img',
+    'album_still_share',
+    'album_gif_share',
+    'album_avg_img_size',
+    'album_titles']
+
+#Connect to database
+connection = sqlite3.connect(outputdb)
+c = connection.cursor()
+
+#c.execute("DROP TABLE imagedata_" + input_ext + ";")
+
+#If table exists, create a dictionary to store pre-scraped URLs. Otherwise, create the table.
+scraped_values_dict = {}
+try:
+    for scraped_url in c.execute("SELECT hash FROM imagedata_"+ input_ext):
+        scraped_values_dict[scraped_url] = ''
+except sqlite3.OperationalError:
+    c.execute("CREATE TABLE imagedata_" + input_ext + "(hash CHAR(20), account_url TEXT, account_id INT, title TEXT, timestamp TIMESTAMP, ext CHAR(6), section TEXT, animated INT, hot_datetime TIMESTAMP, meme_name TEXT, reddit TEXT, topic TEXT, virality FLOAT, ups INT, downs INT, views INT, favorited INT, comment_count INT, score INT, points INT, nsfw INT, is_album INT, album_images INT, album_still_share FLOAT, album_gif_share FLOAT, album_avg_img_size FLOAT, album_titles FLOAT )")
+    connection.commit()
+connection.close()
 #loading and reading data from the saved training files
 face_data=np.load('training_faces.npy')
 labels=np.load('training_ids.npy')
